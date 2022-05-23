@@ -1,0 +1,30 @@
+https://www.youtube.com/watch?v=Rt_cmIq12lo&ab_channel=NEAR
+https://docs.near.org/docs/tutorials/contracts/nfts/introduction    
+
+rustup target add wasm32-unknown-unknown
+
+
+yarn
+yarn deploy
+
+near login
+export NFT_CONTRACT_ID=test_acc1.testnet
+echo $NFT_CONTRACT_ID
+
+near deploy --wasmFile /home/abdullah/near/nft-tutorial-repos/nft-tutorial/out/main.wasm --accountId $NFT_CONTRACT_ID
+near call $NFT_CONTRACT_ID new_default_meta '{"owner_id":"'$NFT_CONTRACT_ID'"}' --accountId $NFT_CONTRACT_ID
+near view $NFT_CONTRACT_ID nft_metadata
+
+
+near call $NFT_CONTRACT_ID nft_mint '{"token_id":"token-1", "metadata":{"title":"My Non Fungible Token 1", "description":"The Team Most Certainly Goes :)", "media":"https://gateway.pinata.cloud/ipfs/QmWy2PsVww3EQguyekFM8fnLEZ6gwwLjKRi5p6e2ALnYRQ/DP1.jpg"}, "receiver_id":"'$NFT_CONTRACT_ID'"}' --accountId $NFT_CONTRACT_ID --amount 0.1
+near view $NFT_CONTRACT_ID nft_token '{"token_id":"token-1"}'
+
+
+
+========== frontend =========
+https://docs.near.org/docs/api/naj-quick-reference
+cd ..
+cd nft-tutorial-frontend
+git checkout ethdenver-tutorial
+yarn
+yarn start
